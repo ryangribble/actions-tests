@@ -27,8 +27,8 @@ jobs:
           echo REF:        $MyRef
           echo Calculated: $MyValue
         env:
-          MyHeadRef: ${{ github.head_ref || github.ref }}
-          MyRef: ${{ github.head_ref || github.ref }}
+          MyHeadRef: ${{ github.head_ref }}
+          MyRef: ${{ github.ref }}
           MyValue: ${{ github.head_ref || github.ref }}
           
       - name: Set branch name
@@ -55,6 +55,6 @@ jobs:
           echo REF:        $MyRef
           echo Calculated: $MyValue
         env:
-          MyHeadRef: ${{ github.head_ref || github.ref }}
-          MyRef: ${{ github.head_ref || github.ref }}
+          MyHeadRef: ${{ github.head_ref }}
+          MyRef: ${{ github.ref }}
           MyValue: ${{ steps.set_branch_name.outputs.value }}
