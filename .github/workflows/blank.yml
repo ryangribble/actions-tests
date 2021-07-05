@@ -48,7 +48,7 @@ jobs:
           DEFAULT_IFNULL: ${{ github.ref }}
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Try step output
         run: |
           echo "== Testing step output variables =="
           echo HEAD_REF:   $MyHeadRef
