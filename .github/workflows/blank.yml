@@ -21,28 +21,40 @@ jobs:
           fetch-depth: 0 # all
           
       - name: Try fallback
-        run: echo Hello, world!  From $MyCurrentBranch
+        run: |
+          echo "== Testing parameter fallback with || =="
+          echo HEAD_REF:   $MyHeadRef
+          echo REF:        $MyRef
+          echo Calculated: $MyValue
         env:
-          MyCurrentBranch: ${{ github.head_ref || github.ref }}
+          MyHeadRef: ${{ github.head_ref || github.ref }}
+          MyRef: ${{ github.head_ref || github.ref }}
+          MyValue: ${{ github.head_ref || github.ref }}
           
       - name: Set branch name
         id: set_branch_name
         run: |
-          echo "Checking if VAL '$VAL' is null"
-          if [$VAL == null]
+          echo "Checking if VALUE '$VALUE' is null"
+          if [ $VALUE ]
           then
-              echo "Not null - use VAL"
-              echo "::set-output name=value::$VAL"
+              echo "Not null - using VALUE"
+              echo "::set-output name=value::$VALUE"
           else
-              echo "VALUE is null - use DEFAULT_IFNULL ($DEFAULT_IFNULL)"
-              echo "::set-output name=value::$DEFAULT"
+              echo "VALUE is null - using DEFAULT_IFNULL ($DEFAULT_IFNULL)"
+              echo "::set-output name=value::$DEFAULT_IFNULL"
           fi
         env:
-          VAL: ${{ github.head_ref }}
+          VALUE: ${{ github.head_ref }}
           DEFAULT_IFNULL: ${{ github.ref }}
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!  From $MyCurrentBranch
+      - name: Try step output
+        run: |
+          echo "== Testing step output variables =="
+          echo HEAD_REF:   $MyHeadRef
+          echo REF:        $MyRef
+          echo Calculated: $MyValue
         env:
-          MyCurrentBranch: ${{ steps.set_branch_name.outputs.value }}
+          MyHeadRef: ${{ github.head_ref || github.ref }}
+          MyRef: ${{ github.head_ref || github.ref }}
+          MyValue: ${{ steps.set_branch_name.outputs.value }}
