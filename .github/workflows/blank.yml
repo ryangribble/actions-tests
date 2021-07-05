@@ -20,11 +20,16 @@ jobs:
         with:
           fetch-depth: 0 # all
           
+      - name: Try fallback
+        run: echo Hello, world!  From $MyCurrentBranch
+        env:
+          MyCurrentBranch: ${{ github.head_ref || github.ref }}
+          
       - name: Set branch name
         id: set_branch_name
         run: |
           echo "Checking if VAL '$VAL' is null"
-          if [$VAL]
+          if [$VAL == null]
           then
               echo "Not null - use VAL"
               echo "::set-output name=value::$VAL"
