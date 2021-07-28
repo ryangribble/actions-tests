@@ -58,6 +58,6 @@ jobs:
           echo "This is a pre release"
 
       - name: Is Not a Pre Release
-        if: ${{ !contains( steps.build.outputs.OctoVersion.FullSemVer, '-'' ) }}
+        if: ${{ !contains( steps.build.outputs.OctoVersion.FullSemVer, '-' ) }}
         run: |
           echo "This is a NOT a pre release"
