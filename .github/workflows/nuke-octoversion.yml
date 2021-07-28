@@ -52,6 +52,23 @@ jobs:
           InformationalVersion: ${{ steps.build.outputs.OctoVersion.InformationalVersion }}
           NuGetVersion: ${{ steps.build.outputs.OctoVersion.NuGetVersion }}
 
+      - name: Check OctoVersion ENV_VARS
+        run: |
+          echo "== Testing OctoVersion step output variables =="
+          echo PreReleaseTagWithDash:   $PreReleaseTagWithDash
+          echo MajorMinorPatch:   $MajorMinorPatch
+          echo BuildMetadataWithPlus:   $BuildMetadataWithPlus
+          echo FullSemVer:   $FullSemVer
+          echo InformationalVersion:   $InformationalVersion
+          echo NuGetVersion:   $NuGetVersion
+        env:
+          PreReleaseTagWithDash: $OCTOVERSION_PreReleaseTagWithDash
+          MajorMinorPatch: $OCTOVERSION_MajorMinorPatch
+          BuildMetadataWithPlus: $OCTOVERSION_BuildMetadataWithPlus
+          FullSemVer: $OCTOVERSION_FullSemVer
+          InformationalVersion: $OCTOVERSION_InformationalVersion
+          NuGetVersion: $OCTOVERSION_NuGetVersion
+
       - name: Is Pre Release
         if: ${{ contains( steps.build.outputs.OctoVersion.FullSemVer, '-' ) }}
         run: |
