@@ -1,4 +1,4 @@
-name: Build, Test, Package and Push
+name: Test parameter fallback
 
 # Controls when the action will run. 
 on: 
