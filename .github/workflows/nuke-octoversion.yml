@@ -39,11 +39,11 @@ jobs:
         run: |
           echo "== Testing OctoVersion step output variables =="
           echo PreReleaseTagWithDash:   $PreReleaseTagWithDash
-          echo MajorMinorPatch:   $MajorMinorPatch
+          echo MajorMinorPatch:         $MajorMinorPatch
           echo BuildMetadataWithPlus:   $BuildMetadataWithPlus
-          echo FullSemVer:   $FullSemVer
-          echo InformationalVersion:   $InformationalVersion
-          echo NuGetVersion:   $NuGetVersion
+          echo FullSemVer:              $FullSemVer
+          echo InformationalVersion:    $InformationalVersion
+          echo NuGetVersion:            $NuGetVersion
         env:
           PreReleaseTagWithDash: ${{ steps.build.outputs.OctoVersion.PreReleaseTagWithDash }}
           MajorMinorPatch: ${{ steps.build.outputs.OctoVersion.MajorMinorPatch }}
@@ -54,20 +54,13 @@ jobs:
 
       - name: Check OctoVersion ENV_VARS
         run: |
-          echo "== Testing OctoVersion step output variables =="
-          echo PreReleaseTagWithDash:   $PreReleaseTagWithDash
-          echo MajorMinorPatch:   $MajorMinorPatch
-          echo BuildMetadataWithPlus:   $BuildMetadataWithPlus
-          echo FullSemVer:   $FullSemVer
-          echo InformationalVersion:   $InformationalVersion
-          echo NuGetVersion:   $NuGetVersion
-        env:
-          PreReleaseTagWithDash: $OCTOVERSION_PreReleaseTagWithDash
-          MajorMinorPatch: $OCTOVERSION_MajorMinorPatch
-          BuildMetadataWithPlus: $OCTOVERSION_BuildMetadataWithPlus
-          FullSemVer: $OCTOVERSION_FullSemVer
-          InformationalVersion: $OCTOVERSION_InformationalVersion
-          NuGetVersion: $OCTOVERSION_NuGetVersion
+          echo "== Testing OctoVersion ENV variables =="
+          echo PreReleaseTagWithDash:   $OCTOVERSION_PreReleaseTagWithDash
+          echo MajorMinorPatch:         $OCTOVERSION_MajorMinorPatch
+          echo BuildMetadataWithPlus:   $OCTOVERSION_BuildMetadataWithPlus
+          echo FullSemVer:              $OCTOVERSION_FullSemVer
+          echo InformationalVersion:    $OCTOVERSION_InformationalVersion
+          echo NuGetVersion:            $OCTOVERSION_NuGetVersion
 
       - name: Is Pre Release
         if: ${{ contains( steps.build.outputs.OctoVersion.FullSemVer, '-' ) }}
