@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Nuke.Common" Version="5.2.1" />
     <PackageReference Include="Nuke.OctoVersion" Version="0.2.438" />
-    <PackageReference Include="OctoVersion.Core" Version="0.2.593-github-actions" />
+    <PackageReference Include="OctoVersion.Core" Version="0.2.601-github-actions" />
   </ItemGroup>
 
 </Project>

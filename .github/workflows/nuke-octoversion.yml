@@ -35,22 +35,6 @@ jobs:
           OCTOVERSION_CurrentBranch:  ${{ github.head_ref || github.ref }} # For pull_request events we override the /refs/pull/xx/merge branch to the PR's head branch
           OCTOVERSION_Patch : ${{ github.run_number }}
 
-      - name: Dump steps context (1st)
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-
-      - name: Check OctoVersion outputs (debug)
-        run: |
-          echo "== Testing OctoVersion step output variables =="
-          echo Step1: $STEP1
-          echo Step2: $STEP2
-          echo Step3: $STEP3
-        env:
-          STEP1: ${{ toJson(steps.build) }}
-          STEP2: ${{ toJson(steps.build.outputs) }}
-          STEP3: ${{ toJson(steps.build.outputs.'OctoVersion.PreReleaseTagWithDash') }}
-
       - name: Check OctoVersion outputs
         run: |
           echo "== Testing OctoVersion step output variables =="
@@ -61,12 +45,12 @@ jobs:
           echo InformationalVersion:    $InformationalVersion
           echo NuGetVersion:            $NuGetVersion
         env:
-          PreReleaseTagWithDash: ${{ steps.build.outputs.OctoVersion.PreReleaseTagWithDash }}
-          MajorMinorPatch: ${{ steps.build.outputs.OctoVersion.MajorMinorPatch }}
-          BuildMetadataWithPlus: ${{ steps.build.outputs.OctoVersion.BuildMetadataWithPlus }}
-          FullSemVer: ${{ steps.build.outputs.OctoVersion.FullSemVer }}
-          InformationalVersion: ${{ steps.build.outputs.OctoVersion.InformationalVersion }}
-          NuGetVersion: ${{ steps.build.outputs.OctoVersion.NuGetVersion }}
+          PreReleaseTagWithDash: ${{ steps.build.outputs.OctoVersion_PreReleaseTagWithDash }}
+          MajorMinorPatch: ${{ steps.build.outputs.OctoVersion_MajorMinorPatch }}
+          BuildMetadataWithPlus: ${{ steps.build.outputs.OctoVersion_BuildMetadataWithPlus }}
+          FullSemVer: ${{ steps.build.outputs.OctoVersion_FullSemVer }}
+          InformationalVersion: ${{ steps.build.outputs.OctoVersion_InformationalVersion }}
+          NuGetVersion: ${{ steps.build.outputs.OctoVersion_NuGetVersion }}
 
       - name: Check OctoVersion ENV_VARS
         run: |
