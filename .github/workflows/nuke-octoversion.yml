@@ -44,12 +44,18 @@ jobs:
         run: |
           echo "== Testing OctoVersion step output variables =="
           echo Step1: $STEP1
-          echo Step1: $STEP2
-          echo Step1: $STEP3
+          echo Step2: $STEP2
+          echo Step3A: $STEP3A
+          echo Step3B: $STEP3B
+          echo Step3C: $STEP3C
+          echo Step3D: $STEP3D
         env:
           STEP1: ${{ toJson(steps.build) }}
           STEP2: ${{ toJson(steps.build.outputs) }}
-          STEP3: ${{ toJson(steps.build.outputs.OctoVersion.PreReleaseTagWithDash) }}
+          STEP3A: ${{ toJson(steps.build.outputs.OctoVersion..PreReleaseTagWithDash) }}
+          STEP3B: ${{ toJson(steps.build.outputs.OctoVersion\.PreReleaseTagWithDash) }}
+          STEP3C: ${{ toJson(steps.build.outputs.OctoVersion'.PreReleaseTagWithDash) }}
+          STEP3D: ${{ toJson(steps.build.outputs.OctoVersion_PreReleaseTagWithDash) }}
 
       - name: Check OctoVersion outputs
         run: |
