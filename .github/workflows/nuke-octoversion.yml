@@ -52,7 +52,7 @@ jobs:
         env:
           STEP1: ${{ toJson(steps.build) }}
           STEP2: ${{ toJson(steps.build.outputs) }}
-          STEP3A: ${{ toJson(steps.build.outputs.OctoVersion..PreReleaseTagWithDash) }}
+          STEP3A: ${{ toJson(steps.build.outputs.OctoVersion.PreReleaseTagWithDash) }}
           STEP3B: ${{ toJson(steps.build.outputs.OctoVersion\.PreReleaseTagWithDash) }}
           STEP3C: ${{ toJson(steps.build.outputs.OctoVersion'.PreReleaseTagWithDash) }}
           STEP3D: ${{ toJson(steps.build.outputs.OctoVersion_PreReleaseTagWithDash) }}
