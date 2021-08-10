@@ -2,8 +2,7 @@ using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
-using OctoVersion.Core;
-using Nuke.OctoVersion;
+using Nuke.Common.Tools.OctoVersion;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
@@ -13,7 +12,7 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
 
-    [NukeOctoVersion] readonly OctoVersionInfo OctoVersionInfo;
+    [OctoVersion(UpdateBuildNumber = false, Framework = "net5.0")] OctoVersionInfo OctoVersionInfo;
 
     static AbsolutePath SourceDirectory => RootDirectory / "source";
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
