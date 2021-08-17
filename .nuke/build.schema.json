@@ -64,7 +64,8 @@
             "type": "string",
             "enum": [
               "CalculateVersion",
-              "Default"
+              "Default",
+              "OutputVersion"
             ]
           }
         },
@@ -79,7 +80,8 @@
             "type": "string",
             "enum": [
               "CalculateVersion",
-              "Default"
+              "Default",
+              "OutputVersion"
             ]
           }
         },

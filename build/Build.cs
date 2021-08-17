@@ -1,3 +1,4 @@
+using System;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
@@ -25,8 +26,18 @@ class Build : NukeBuild
             //all the magic happens inside `[NukeOctoVersion]` above. we just need a target for TeamCity to call
         });
 
+    Target OutputVersion => _ => _
+        .DependsOn(CalculateVersion)
+        .Executes(() =>
+        {
+            Console.WriteLine("Outputting OctoVersion calculated values to see if they were calculated correctly within Nuke");
+            Console.WriteLine($"FullSemVer:     {OctoVersionInfo.FullSemVer}");
+            Console.WriteLine($"NuGetVersion:   {OctoVersionInfo.NuGetVersion}");
+            Console.WriteLine($"BuildMetaData:  {OctoVersionInfo.BuildMetaData}");
+        });
+
     Target Default => _ => _
-        .DependsOn(CalculateVersion);
+        .DependsOn(OutputVersion);
 
     /// Support plugins are available for:
     /// - JetBrains ReSharper        https://nuke.build/resharper
