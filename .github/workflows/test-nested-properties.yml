@@ -2,6 +2,14 @@ name: Test nested properties
 
 # Controls when the action will run. 
 on: 
+  # Triggers the workflow on pull request events and merges/pushes to main
+  push:
+    branches:
+      - main
+      - release/*
+  pull_request:
+    types: [opened, synchronize, reopened]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
