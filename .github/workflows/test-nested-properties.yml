@@ -1,4 +1,4 @@
-name: Test parameter fallback
+name: Test nested properties
 
 # Controls when the action will run. 
 on: 
