@@ -27,7 +27,7 @@ jobs:
           echo "Creating output variables"
           echo "::set-output name=object1.propertyA::somevalue"
           echo "::set-output name=object1.propertyB::somevalue"
-          echo "::set-output name=object2::${{ fromJson('{"property1": "somevalue", "property2": "somevalue" }') }}"
+          echo "::set-output name=object2::${{ toJson(fromJson('{"property1": "somevalue", "property2": "somevalue" }')) }}"
 
       # Runs a single command using the runners shell
       - name: Try step output
@@ -43,9 +43,9 @@ jobs:
           MyOutput1: ${{ steps.build.outputs.object1 }}
           MyOutput2: ${{ steps.build.outputs.object1.propertyA }}
           MyOutput3: ${{ steps.build.outputs['object1.propertyA'] }}
-          MyOutput4: ${{ steps.build.outputs.object1 }}
-          MyOutput5: ${{ steps.build.outputs.object1.propertyA }}
-          MyOutput6: ${{ steps.build.outputs['object1.propertyA'] }}
+          MyOutput4: ${{ steps.build.outputs.object2 }}
+          MyOutput5: ${{ steps.build.outputs.object2.propertyA }}
+          MyOutput6: ${{ steps.build.outputs['object2.propertyA'] }}
 
       - name: Dump steps context
         env:
