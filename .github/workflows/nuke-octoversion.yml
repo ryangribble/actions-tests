@@ -37,19 +37,12 @@ jobs:
       - name: Check OctoVersion outputs
         run: |
           echo "== Testing OctoVersion step output variables =="
-          echo PreReleaseTagWithDash:   $PreReleaseTagWithDash
-          echo MajorMinorPatch:         $MajorMinorPatch
-          echo BuildMetadataWithPlus:   $BuildMetadataWithPlus
-          echo FullSemVer:              $FullSemVer
-          echo InformationalVersion:    $InformationalVersion
-          echo NuGetVersion:            $NuGetVersion
-        env:
-          PreReleaseTagWithDash: ${{ steps.build.outputs.octoversion_prereleasetagwithdash }}
-          MajorMinorPatch: ${{ steps.build.outputs.octoversion_majorminorpatch }}
-          BuildMetadataWithPlus: ${{ steps.build.outputs.octoversion_buildmetadatawithplus }}
-          FullSemVer: ${{ steps.build.outputs.octoversion_fullsemver }}
-          InformationalVersion: ${{ steps.build.outputs.octoversion_informationalversion }}
-          NuGetVersion: ${{ steps.build.outputs.octoversion_nugetversion }}
+          echo PreReleaseTagWithDash:   ${{ steps.build.outputs.octoversion_prereleasetagwithdash }}
+          echo MajorMinorPatch:         ${{ steps.build.outputs.octoversion_majorminorpatch }}
+          echo BuildMetadataWithPlus:   ${{ steps.build.outputs.octoversion_buildmetadatawithplus }}
+          echo FullSemVer:              ${{ steps.build.outputs.octoversion_fullsemver }}
+          echo InformationalVersion:    ${{ steps.build.outputs.octoversion_informationalversion }}
+          echo NuGetVersion:            ${{ steps.build.outputs.octoversion_nugetversion }}
 
       - name: Check OctoVersion ENV_VARS
         run: |
