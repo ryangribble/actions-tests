@@ -13,7 +13,7 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
 
-    [OctoVersion(UpdateBuildNumber = false, Framework = "net5.0")] OctoVersionInfo OctoVersionInfo;
+    [OctoVersion] OctoVersionInfo OctoVersionInfo;
 
     static AbsolutePath SourceDirectory => RootDirectory / "source";
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
