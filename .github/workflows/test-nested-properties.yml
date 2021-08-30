@@ -1,0 +1,53 @@
+name: Test nested properties
+
+# Controls when the action will run. 
+on: 
+  # Triggers the workflow on pull request events and merges/pushes to main
+  push:
+    branches:
+      - main
+      - release/*
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # all
+          
+      - name: Create output
+        id: build
+        run: |
+          echo "Creating output variables"
+          echo "::set-output name=object1.propertyA::somevalue"
+          echo "::set-output name=object1.propertyB::somevalue"
+          echo "::set-output name=object2::${{ '{"propertyA": "somevalue", "propertyB": "somevalue" }' }}"
+
+      # Runs a single command using the runners shell
+      - name: Try step output
+        run: |
+          echo "== Testing step output variables =="
+          echo 1: $MyOutput1
+          echo 2: $MyOutput2
+          echo 3: $MyOutput3
+          echo 4: $MyOutput4
+          echo 5: $MyOutput5
+          echo 6: $MyOutput6
+        env:
+          MyOutput1: ${{ steps.build.outputs.object1 }}
+          MyOutput2: ${{ steps.build.outputs.object1.propertyA }}
+          MyOutput3: ${{ steps.build.outputs['object1.propertyA'] }}
+          MyOutput4: ${{ steps.build.outputs.object2 }}
+          MyOutput5: ${{ steps.build.outputs.object2.propertyA }}
+          MyOutput6: ${{ steps.build.outputs['object2.propertyA'] }}
+
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"

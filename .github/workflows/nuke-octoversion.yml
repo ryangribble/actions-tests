@@ -26,31 +26,38 @@ jobs:
         with:
           dotnet-version: 5.0.x
           
-      - name: Nuke Build 🏗
+      - name: Nuke Build 🏗️
         id: build
         shell: bash
-        run: ./build.sh --verbosity verbose
-        env:
-          OCTOVERSION_OutputFormats__0: GitHubActions
-          OCTOVERSION_CurrentBranch:  ${{ github.head_ref || github.ref }} # For pull_request events we override the /refs/pull/xx/merge branch to the PR's head branch
-          OCTOVERSION_Patch : ${{ github.run_number }}
+        # For pull_request events we override the /refs/pull/xx/merge branch to the PR's head branch
+        run: |
+          ./build.sh \
+            --verbosity verbose \
+            --OctoVersionBranch ${{ github.head_ref || github.ref }} \
+            --OctoVersionPatch ${{ github.run_number }}
+      
+      - name: Tag release (when not pre-release) 🏷️
+        if: ${{ !contains( steps.build.outputs.octoversion_fullsemver, '-' ) }}
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{ steps.build.outputs.octoversion_fullsemver }}",
+              sha: context.sha
+            })
 
       - name: Check OctoVersion outputs
         run: |
           echo "== Testing OctoVersion step output variables =="
-          echo PreReleaseTagWithDash:   $PreReleaseTagWithDash
-          echo MajorMinorPatch:         $MajorMinorPatch
-          echo BuildMetadataWithPlus:   $BuildMetadataWithPlus
-          echo FullSemVer:              $FullSemVer
-          echo InformationalVersion:    $InformationalVersion
-          echo NuGetVersion:            $NuGetVersion
-        env:
-          PreReleaseTagWithDash: ${{ steps.build.outputs.OctoVersion_PreReleaseTagWithDash }}
-          MajorMinorPatch: ${{ steps.build.outputs.OctoVersion_MajorMinorPatch }}
-          BuildMetadataWithPlus: ${{ steps.build.outputs.OctoVersion_BuildMetadataWithPlus }}
-          FullSemVer: ${{ steps.build.outputs.OctoVersion_FullSemVer }}
-          InformationalVersion: ${{ steps.build.outputs.OctoVersion_InformationalVersion }}
-          NuGetVersion: ${{ steps.build.outputs.OctoVersion_NuGetVersion }}
+          echo PreReleaseTagWithDash:   ${{ steps.build.outputs.octoversion_prereleasetagwithdash }}
+          echo MajorMinorPatch:         ${{ steps.build.outputs.octoversion_majorminorpatch }}
+          echo BuildMetadataWithPlus:   ${{ steps.build.outputs.octoversion_buildmetadatawithplus }}
+          echo FullSemVer:              ${{ steps.build.outputs.octoversion_fullsemver }}
+          echo InformationalVersion:    ${{ steps.build.outputs.octoversion_informationalversion }}
+          echo NuGetVersion:            ${{ steps.build.outputs.octoversion_nugetversion }}
 
       - name: Check OctoVersion ENV_VARS
         run: |
@@ -63,12 +70,12 @@ jobs:
           echo NuGetVersion:            $OCTOVERSION_NuGetVersion
 
       - name: Is Pre Release
-        if: ${{ contains( steps.build.outputs.OctoVersion_FullSemVer, '-' ) }}
+        if: ${{ contains( steps.build.outputs.octoversion_fullsemver, '-' ) }}
         run: |
           echo "This is a pre release"
 
       - name: Is Not a Pre Release
-        if: ${{ !contains( steps.build.outputs.OctoVersion_FullSemVer, '-' ) }}
+        if: ${{ !contains( steps.build.outputs.octoversion_fullsemver, '-' ) }}
         run: |
           echo "This is a NOT a pre release"
 
