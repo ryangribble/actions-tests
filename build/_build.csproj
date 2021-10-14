@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="5.4.0-alpha0064" />
+    <PackageReference Include="Nuke.Common" Version="5.4.0-serilog2-0068" />
   </ItemGroup>
 
   <ItemGroup>
