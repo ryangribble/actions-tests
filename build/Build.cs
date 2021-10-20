@@ -24,9 +24,9 @@ class Build : NukeBuild
         {
             //all the magic happens inside `[OctoVersion]` above.  We can just check if the versions got populated here
             Console.WriteLine("Outputting OctoVersion calculated values to see if they were calculated correctly within Nuke");
-            Console.WriteLine($"FullSemVer:     {OctoVersionInfo.FullSemVer}");
-            Console.WriteLine($"NuGetVersion:   {OctoVersionInfo.NuGetVersion}");
-            Console.WriteLine($"BuildMetaData:  {OctoVersionInfo.BuildMetaData}");
+            Console.WriteLine($"FullSemVer:     {OctoVersionInfo?.FullSemVer}");
+            Console.WriteLine($"NuGetVersion:   {OctoVersionInfo?.NuGetVersion}");
+            Console.WriteLine($"BuildMetaData:  {OctoVersionInfo?.BuildMetaData}");
         });
 
     Target Default => _ => _
