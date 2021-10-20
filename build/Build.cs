@@ -11,6 +11,7 @@ class Build : NukeBuild
 {
     readonly Configuration Configuration = Configuration.Release;
 
+    [OctoVersion(AutoDetectBranch = true)]
     readonly OctoVersionInfo OctoVersionInfo;
 
     static AbsolutePath SourceDirectory => RootDirectory / "source";
