@@ -11,26 +11,19 @@ class Build : NukeBuild
 {
     readonly Configuration Configuration = Configuration.Release;
 
-    [Required]
-    readonly OctoVersionInfo OctoVersionInfo = null;
-
     static AbsolutePath SourceDirectory => RootDirectory / "source";
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
     static AbsolutePath PublishDirectory => RootDirectory / "publish";
     static AbsolutePath LocalPackagesDir => RootDirectory / ".." / "LocalPackages";
 
-    Target OutputVersion => _ => _
+    Target TestError => _ => _
         .Executes(() =>
         {
-            //all the magic happens inside `[OctoVersion]` above.  We can just check if the versions got populated here
-            Console.WriteLine("Outputting OctoVersion calculated values to see if they were calculated correctly within Nuke");
-            Console.WriteLine($"FullSemVer:     {OctoVersionInfo?.FullSemVer}");
-            Console.WriteLine($"NuGetVersion:   {OctoVersionInfo?.NuGetVersion}");
-            Console.WriteLine($"BuildMetaData:  {OctoVersionInfo?.BuildMetaData}");
+            throw new Exception("test errors");
         });
 
     Target Default => _ => _
-        .DependsOn(OutputVersion);
+        .DependsOn(TestError);
 
     /// Support plugins are available for:
     /// - JetBrains ReSharper        https://nuke.build/resharper
