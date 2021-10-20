@@ -12,7 +12,7 @@ class Build : NukeBuild
     readonly Configuration Configuration = Configuration.Release;
 
     [Required]
-    readonly OctoVersionInfo OctoVersionInfo;
+    readonly OctoVersionInfo OctoVersionInfo = null;
 
     static AbsolutePath SourceDirectory => RootDirectory / "source";
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
