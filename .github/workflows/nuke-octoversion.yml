@@ -32,7 +32,6 @@ jobs:
         # For pull_request events we override the /refs/pull/xx/merge branch to the PR's head branch
         run: |
           ./build.sh \
-            --OctoVersionBranch ${{ github.head_ref || github.ref }} \
             --OctoVersionPatch ${{ github.run_number }}
       
       - name: Tag release (when not pre-release) 🏷️
