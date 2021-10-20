@@ -11,13 +11,6 @@ class Build : NukeBuild
 {
     readonly Configuration Configuration = Configuration.Release;
 
-    [Parameter] readonly bool? OctoVersionAutoDetectBranch = NukeBuild.IsLocalBuild;
-    [Parameter] readonly string OctoVersionBranch;
-    [Parameter] readonly string OctoVersionFullSemVer;
-    [Parameter] readonly int? OctoVersionMajor;
-    [Parameter] readonly int? OctoVersionMinor;
-    [Parameter] readonly int? OctoVersionPatch;
-
     [Required]
     [OctoVersion]
     readonly OctoVersionInfo OctoVersionInfo;
