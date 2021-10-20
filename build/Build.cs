@@ -11,7 +11,7 @@ class Build : NukeBuild
 {
     readonly Configuration Configuration = Configuration.Release;
 
-    [OctoVersion(AutoDetectBranch = true)]
+    [OctoVersion]
     readonly OctoVersionInfo OctoVersionInfo;
 
     static AbsolutePath SourceDirectory => RootDirectory / "source";
@@ -22,7 +22,6 @@ class Build : NukeBuild
     Target OutputVersion => _ => _
         .Executes(() =>
         {
-            throw new Exception("Throwing a test exception to see what happens");
             //all the magic happens inside `[OctoVersion]` above.  We can just check if the versions got populated here
             Console.WriteLine("Outputting OctoVersion calculated values to see if they were calculated correctly within Nuke");
             Console.WriteLine($"FullSemVer:     {OctoVersionInfo?.FullSemVer}");
