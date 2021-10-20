@@ -31,10 +31,7 @@ jobs:
         shell: bash
         # For pull_request events we override the /refs/pull/xx/merge branch to the PR's head branch
         run: |
-          ./build.sh \
-            --verbosity verbose \
-            --OctoVersionBranch ${{ github.head_ref || github.ref }} \
-            --OctoVersionPatch ${{ github.run_number }}
+          ./build.sh
       
       - name: Tag release (when not pre-release) 🏷️
         if: ${{ !contains( steps.build.outputs.octoversion_fullsemver, '-' ) }}
