@@ -26,15 +26,14 @@ jobs:
         with:
           dotnet-version: 5.0.x
           
-      - name: Nuke Build
+      - name: Nuke Build 🏗️
         id: build
         shell: bash
         # For pull_request events we override the /refs/pull/xx/merge branch to the PR's head branch
         run: |
-          ./build.sh \
-            --OctoVersionPatch ${{ github.run_number }}
+          ./build.sh
       
-      - name: Tag release (when not pre-release)
+      - name: Tag release (when not pre-release) 🏷️
         if: ${{ !contains( steps.build.outputs.octoversion_fullsemver, '-' ) }}
         uses: actions/github-script@v3
         with:

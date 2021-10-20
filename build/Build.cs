@@ -19,13 +19,7 @@ class Build : NukeBuild
     [Parameter] readonly int? OctoVersionPatch;
 
     [Required]
-    [OctoVersion(
-        AutoDetectBranchParameter = nameof(OctoVersionAutoDetectBranch),
-        BranchParameter = nameof(OctoVersionBranch),
-        FullSemVerParameter = nameof(OctoVersionFullSemVer),
-        MajorParameter = nameof(OctoVersionMajor),
-        MinorParameter = nameof(OctoVersionMinor),
-        PatchParameter = nameof(OctoVersionPatch))]
+    [OctoVersion]
     readonly OctoVersionInfo OctoVersionInfo;
 
     static AbsolutePath SourceDirectory => RootDirectory / "source";
