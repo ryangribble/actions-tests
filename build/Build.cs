@@ -11,7 +11,6 @@ class Build : NukeBuild
 {
     readonly Configuration Configuration = Configuration.Release;
 
-    [Required]
     [OctoVersion]
     readonly OctoVersionInfo OctoVersionInfo;
 
